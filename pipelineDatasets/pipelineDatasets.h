@@ -1,6 +1,7 @@
 #ifndef pipelineDatasets_h
 #define pipelineDatasets_h 1
 
+#include <TSQLServer.h>
 #include <TChain.h>
 #include <TObjArray.h>
 #include <vector>
