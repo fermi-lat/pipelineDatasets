@@ -1,4 +1,3 @@
-#include <TSQLServer.h>
 #include <TSQLRow.h>
 #include <TSQLResult.h> 
 #include <TFrame.h>
@@ -9,7 +8,7 @@
 #include <sstream>
 #include <TString.h>
 #include <TObjString.h>
-#include "pipelineDatasets.h"
+#include "pipelineDatasets/pipelineDatasets.h"
 
  pipelineDatasets::~pipelineDatasets() { 
    if (m_datasetsChain) delete m_datasetsChain;
@@ -47,7 +46,7 @@ int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, char* ru
   std::sprintf(sql11, sql12, datasetName, taskName);
   TString sql1 = sql11;
 
-  if (runMax > 0) {
+  if (runMax != "") {
     sql1.Strip();
     sql1.Append(" and r.runname between '");
     sql1.Append(runMin);
