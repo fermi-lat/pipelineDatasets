@@ -14,5 +14,6 @@ use GlastPolicy *
 #library pipelineDatasets  *.cxx
 
  apply_pattern root_package headers="\
-   ../pipelineDatasets/pipelineDatasets.h"
+   ../pipelineDatasets/pipelineDatasets.h\
+   ../pipelineDatasets/pruneTuple.h"
 
