@@ -16,7 +16,7 @@
 };
 
 
-int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, char* runMin, char* runMax){
+int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, int runMin, int runMax){
 
 
   // This connects to the database
@@ -37,22 +37,21 @@ int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, char* ru
   //connect();
 
   // To get the list of datasets from input args
-  char* sql12="select dsi.filepath, dsi.filename from glast_dp.dsinstance dsi, glast_dp.run r, glast_dp.dataset ds  where ds.dataset_pk = dsi.dataset_fk and ds.datasetname = '%s' and dsi.run_fk = r.run_pk and r.runstatus_fk = 1 and r.task_fk in (select task_pk from glast_dp.task  t where t.taskname='%s') ";
+  char* sql12="select dsi.filepath, dsi.filename from glast_dp.dsinstance dsi, glast_dp.run r, glast_dp.dataset ds  where r.task_fk in (select task_pk from glast_dp.task  t where t.taskname='%s') and ds.dataset_pk = dsi.dataset_fk and ds.datasetname = '%s' and dsi.run_fk = r.run_pk and r.runstatus_fk = 1 ";
 
 
   char sql11[4096];
 
   // write the variables into the string (taskname and datasetname)
-  std::sprintf(sql11, sql12, datasetName, taskName);
+  std::sprintf(sql11, sql12, taskName, datasetName );
   TString sql1 = sql11;
 
-  if (runMax != "") {
+  if (runMax != 0) {
     sql1.Strip();
-    sql1.Append(" and r.runname between '");
-    sql1.Append(runMin);
-    sql1.Append("' and '");
-    sql1.Append(runMax);
-    sql1.Append("'");
+    sql1.Append(" and TO_NUMBER(r.runname) between '");
+    sql1 += runMin;
+    sql1.Append(" and ");
+    sql1 += runMax;
   };
 
   sql1.Append(" order by r.run_pk asc");
@@ -82,7 +81,7 @@ int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, char* ru
 
 };
 
-int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, std::vector<char*> &runList) {
+int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, std::vector<int> &runList) {
 
   if (runList.size() == 0) {
     std::cout << "No runs in the runList!" << std::endl;
@@ -105,17 +104,16 @@ int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, std::vec
   //  connect();
 
   // To get the list of datasets from input args
-  char* sql12="select dsi.filepath, dsi.filename from glast_dp.dsinstance dsi, glast_dp.run r, glast_dp.dataset ds  where ds.dataset_pk = dsi.dataset_fk and ds.datasetname = '%s' and dsi.run_fk = r.run_pk and r.runstatus_fk = 1 and r.task_fk in (select task_pk from glast_dp.task  t where t.taskname='%s') ";
+ // char* sql12="select dsi.filepath, dsi.filename from glast_dp.dsinstance dsi, glast_dp.run r, glast_dp.dataset ds  where ds.dataset_pk = dsi.dataset_fk and ds.datasetname = '%s' and dsi.run_fk = r.run_pk and r.runstatus_fk = 1 and r.task_fk in (select task_pk from glast_dp.task  t where t.taskname='%s') ";
+  char* sql12="select dsi.filepath, dsi.filename from glast_dp.dsinstance dsi, glast_dp.run r, glast_dp.dataset ds  where r.task_fk in (select task_pk from glast_dp.task  t where t.taskname='%s') and ds.dataset_pk = dsi.dataset_fk and ds.datasetname = '%s' and dsi.run_fk = r.run_pk and r.runstatus_fk = 1 ";
 
 
-  TString rListQuery("and r.runname in (");
-  std::vector<char*>::iterator it;
+  TString rListQuery("and TO_NUMBER(r.runname) in (");
+  std::vector<int>::iterator it;
 
   for (it = runList.begin(); it != runList.end(); it++) {
     if (it != runList.begin()) {rListQuery.Append(",");}
-    rListQuery.Append( "'");
-    rListQuery.Append((char*)(*it));
-    rListQuery.Append( "'");
+    rListQuery+= (*it);
   }
   rListQuery.Append(")");
 

@@ -42,11 +42,11 @@ public :
  ~pipelineDatasets();
 
  /// find datasets by task name, dataset namde and a run range (rc=0 for success)
- int selectDatasets(char* taskName, char* datasetName, char* runMin="", 
-		     char* runMax="");
+ int selectDatasets(char* taskName, char* datasetName, int runMin=0, 
+		     int runMax=0);
 
  /// find datasets by task name, dataset name and a list of runs (rc=0 for success
- int selectDatasets(char* taskName, char* datasetName, std::vector<char*> &runList);
+ int selectDatasets(char* taskName, char* datasetName, std::vector<int> &runList);
 
  /// create a TChain based on the selectDataSets query: supply the tree name
  TChain* makeChain(char* treeName);
