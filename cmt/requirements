@@ -2,13 +2,17 @@ package pipelineDatasets
 version v0
 # $Id$
 
-use ROOT v2r* IExternal
+use RootcintPolicy v* GlastPolicy
 use GlastPolicy *
 
- apply_pattern package_include
- apply_pattern package_headers
- apply_pattern ld_library_path
+# apply_pattern package_include
+## apply_pattern package_headers
+# apply_pattern ld_library_path
 
-private
+#private
 
-library pipelineDatasets  *.cxx
+#library pipelineDatasets  *.cxx
+
+ apply_pattern root_package headers="\
+   ../pipelineDatasets/pipelineDatasets.h"
+
