@@ -1,8 +1,9 @@
 #ifndef pruneTuple_h
 #define pruneTuple_h 1
 
-#include <TChain.h>
-#include <TObjArray.h>
+#include "TChain.h"
+#include "TCut.h"
+#include "TFile.h"
 
 /** @class pruneTuple
  * @brief query the pipeline dataset catalogue by task, datasetname and run
@@ -13,7 +14,7 @@
 class pruneTuple {
 public :
 
-  pruneTuple(char* newFileName = "ntuple-prune.root", char* cut = "") {};
+  pruneTuple(char* newFileName = "ntuple-prune.root", char* cut = "");
  ~pruneTuple();
 
  /// find datasets by task name, dataset namde and a run range (rc=0 for success)
@@ -31,7 +32,7 @@ public :
  TFile* m_newFile;
 
  /// cut to apply
- TCut* m_cut;
+ TCut m_cut;
 
 
 

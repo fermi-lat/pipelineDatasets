@@ -7,6 +7,13 @@ pruneTuple::~pruneTuple() {
 };
 
 
+pruneTuple::pruneTuple(char* newFileName, char* cut) { 
+  TFile* m_newFile = new TFile(newFileName,"new");
+  TCut m_cut(cut);
+
+};
+
+
 int pruneTuple::prune(UInt_t maxPerFile) {
 
   // Concatenate AnalysisNtuple ntuple, applying cuts on active distance and
@@ -24,10 +31,10 @@ int pruneTuple::prune(UInt_t maxPerFile) {
   // copy the tree entries that pass the cuts
   TTree *newTree = m_chain->CopyTree(m_cut);
 
-  newFile->Write();
+  m_newFile->Write();
 
   if (newTree->GetEntries() > maxPerFile) {
-    UInt_t numEntries = newtree->GetEntries();
+    UInt_t numEntries = newTree->GetEntries();
     UInt_t numTrees = Int_t(numEntries/maxPerFile);
     if (numTrees*maxPerFile < numEntries) ++numTrees;
     UInt_t i;
