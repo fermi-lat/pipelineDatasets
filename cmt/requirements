@@ -1,0 +1,14 @@
+package pipelineDatasets
+version v0
+# $Id$
+
+use ROOT v2r* IExternal
+use GlastPolicy *
+
+ apply_pattern package_include
+ apply_pattern package_headers
+ apply_pattern ld_library_path
+
+private
+
+library pipelineDatasets  *.cxx
