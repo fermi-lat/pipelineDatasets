@@ -158,17 +158,19 @@ int pipelineDatasets::selectDatasets(char *taskName, char* datasetName, std::vec
   return 0;
 };
 
-TChain* pipelineDatasets::makeChain(char* treeName) {
+int pipelineDatasets::makeChain(char* treeName) {
 
   if (m_datasetsChain != 0) delete m_datasetsChain;
   m_datasetsChain = new TChain(treeName);
 
   for (Int_t i = 0; i < m_datasetsCol.GetEntries(); i++) {
     m_datasetsChain->Add((((TObjString*)m_datasetsCol.At(i)))->GetString().Data());
+
   }
 
 
-  return m_datasetsChain;
+    return 0;
+
 };
 
 void pipelineDatasets::connect() {

@@ -7,9 +7,10 @@ pruneTuple::~pruneTuple() {
 };
 
 
-pruneTuple::pruneTuple(char* newFileName, char* cut) { 
-  TFile* m_newFile = new TFile(newFileName,"new");
-  TCut m_cut(cut);
+pruneTuple::pruneTuple(TChain* c, char* newFileName, char* cut) { 
+  m_chain = c;
+  m_newFile = new TFile(newFileName,"new");
+  m_cut = TCut(cut);
 
 };
 
@@ -29,12 +30,13 @@ int pruneTuple::prune(UInt_t maxPerFile) {
   m_newFile->cd();
 
   // copy the tree entries that pass the cuts
+
   TTree *newTree = m_chain->CopyTree(m_cut);
 
   m_newFile->Write();
 
   if (newTree->GetEntries() > maxPerFile) {
-    UInt_t numEntries = newTree->GetEntries();
+    Long64_t numEntries = newTree->GetEntries();
     UInt_t numTrees = Int_t(numEntries/maxPerFile);
     if (numTrees*maxPerFile < numEntries) ++numTrees;
     UInt_t i;

@@ -49,7 +49,7 @@ public :
  int selectDatasets(char* taskName, char* datasetName, std::vector<int> &runList);
 
  /// create a TChain based on the selectDataSets query: supply the tree name
- TChain* makeChain(char* treeName);
+ int makeChain(char* treeName);
  TChain* getChain() {return m_datasetsChain;};
 
  protected:

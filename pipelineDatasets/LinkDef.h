@@ -4,6 +4,7 @@
 #pragma link off all functions;
 
 #pragma link C++ class pipelineDatasets+;
+#pragma link C++ class pruneTuple+;
 
 #endif
 

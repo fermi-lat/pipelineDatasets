@@ -14,7 +14,7 @@
 class pruneTuple {
 public :
 
-  pruneTuple(char* newFileName = "ntuple-prune.root", char* cut = "");
+  pruneTuple(TChain* c, char* newFileName = "ntuple-prune.root", char* cut = "");
  ~pruneTuple();
 
  /// find datasets by task name, dataset namde and a run range (rc=0 for success)
