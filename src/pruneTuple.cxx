@@ -1,3 +1,5 @@
+#include "commonRootData/FileHeader.h"
+
 #include "pipelineDatasets/pruneTuple.h"
 
 pruneTuple::~pruneTuple() { 
@@ -53,5 +55,22 @@ int pruneTuple::prune(UInt_t maxPerFile) {
       delete file;
     }
   }
+  return 0;
+}
+
+int pruneTuple::copyHeader(const char* srcFilename)
+{
+  TFile from(srcFilename);
+  if (from.IsZombie()) return -1;
+
+  TObject* headerObj = from.Get("header");
+  if (!headerObj) return 1;
+  FileHeader* header = (FileHeader*)headerObj;
+
+  m_newFile->cd();
+  header->Write("header");
+
+  delete header;
+
   return 0;
 }

@@ -20,7 +20,8 @@ public :
  /// find datasets by task name, dataset namde and a run range (rc=0 for success)
  int prune(UInt_t maxPerFile=200000);
 
-
+ /// copy header from another file to this one (rc=0 for success)
+ int copyHeader(const char* srcFilename);
 
  private:
 
