@@ -1,5 +1,5 @@
 package pipelineDatasets
-version v0r1
+version v0r2
 # $Id$
 
 use RootcintPolicy v* GlastPolicy
