@@ -18,7 +18,7 @@ public :
  ~pruneTuple();
 
  /// find datasets by task name, dataset namde and a run range (rc=0 for success)
- int prune(Long64_t maxPerFile=25000000000LL);
+ int prune(Long64_t maxPerFile=500000000000LL);
 
  /// copy header from another file to this one (rc=0 for success)
  int copyHeader(const char* srcFilename);
