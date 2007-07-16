@@ -33,7 +33,8 @@ int pruneTuple::prune(Long64_t maxPerFile) {
 
   // copy the tree entries that pass the cuts
 
-  TTree *newTree = m_chain->CopyTree(m_cut);
+  // TTree *newTree = m_chain->CopyTree(m_cut);
+  TTree *newTree = m_chain->CloneTree(-1, "fast");
   newTree->SetMaxTreeSize(maxPerFile);
 
   if (m_newFile->Write()) return 0;
