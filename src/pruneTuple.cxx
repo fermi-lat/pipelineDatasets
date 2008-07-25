@@ -37,6 +37,8 @@ int pruneTuple::prune(Long64_t maxPerFile) {
   TTree *newTree = m_chain->CloneTree(-1, "fast");
   newTree->SetMaxTreeSize(maxPerFile);
 
+  newTree->BuildIndex("m_runId", "m_eventId");
+
   if (m_newFile->Write()) return 0;
 
   return 1;

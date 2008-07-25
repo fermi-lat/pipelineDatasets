@@ -1,0 +1,3 @@
+v0r5
+Build an index on ("m_runId", "m_eventId") after merge in
+pruneTuple::prune. [LONE-105@JIRA]
