@@ -54,7 +54,8 @@ int pruneTuple::copyHeader(const char* srcFilename)
   FileHeader* header = (FileHeader*)headerObj;
 
   m_newFile->cd();
-  header->Write("header");
+  Int_t nBytes = header->Write("header");
+  if (!nBytes) return 2;
 
   delete header;
 
