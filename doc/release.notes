@@ -3,6 +3,7 @@
 *
 *                  EOH
 
+ pipelineDatasets-01-00-00 13-Oct-2011 monzani upgrading to SCons
 - adding SConscript, first stag with stag
 
 v0r6
