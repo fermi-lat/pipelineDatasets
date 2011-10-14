@@ -1,3 +1,10 @@
+** @file release.notes
+* Package pipelineDatasets
+*
+*                  EOH
+
+- adding SConscript, first stag with stag
+
 v0r6
 Log result of header->Write in pruneTuple::copyHeader.
 
